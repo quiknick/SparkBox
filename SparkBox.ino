@@ -127,6 +127,10 @@ const uint8_t overlaysCount = 1;
 
 void setup() {
   
+  #ifdef POWER_LED
+    pinMode(LED, OUTPUT);
+	  digitalWrite(LED, HIGH);
+  #endif
   time_to_sleep = millis() + (1000*60); // Preset timeout 
   setCpuFrequencyMhz(180);                      // Hopefully this will let the battery last a bit longer
   #ifdef DEBUG_ON

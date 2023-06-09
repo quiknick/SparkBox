@@ -6,6 +6,9 @@
 // Comment this line out for a production build
 #define DEBUG_ON
 //
+// Power LED Define makes the onboard LED turn on when arduino is powered on.
+//#define POWER_LED
+//
 // Battery charge function defines. Please uncomment just one.
 // You have no mods to monitor the battery, so it will show empty
 //#define BATT_CHECK_0
