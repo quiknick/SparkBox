@@ -55,6 +55,7 @@ Under Tools->Manage Libraries ensure that you have the following libraries and v
 - NimBLE-Arduino 1.4.1
 - ArduinoJson 6.19.4
 - Heltec ESP 1.1.1 (only for Heltec boards)
+For Heltec WiFi v3 boards do not install ThingPulse SSD1306 driver 4.3.0 (ESP32)
 
 The program won't fit into a standard APP partition. The cure is easy though: 
 - in Arduino IDE choose Tools->Partition Scheme->No-OTA(Large APP), or something that gives you around 2MB APP partition along with enough (also 2MB) of SPIFFS space, cause presets are stored there. 
@@ -62,46 +63,46 @@ The program won't fit into a standard APP partition. The cure is easy though:
 
 # Compile options (in config.h)
 
-- **define CLASSIC**
+- **#define CLASSIC**
 
 Uncomment this to use with Android devices that are happier with classic BT code.
 
-- **define BATT_CHECK_0**
+- **#define BATT_CHECK_0**
 
 You have no mods to monitor the battery, so it will show empty (default).
 
-- **define BATT_CHECK_1**
+- **#define BATT_CHECK_1**
 
 You are monitoring the battery via a 2:1 10k/10k resistive divider to GPIO23.
 You can see an accurate representation of the remaining battery charge and a kinda-sorta
 indicator of when the battery is charging. Maybe.
 
-- **define BATT_CHECK_2**
+- **#define BATT_CHECK_2**
 
 You have the battery monitor mod described above AND you have a connection between the 
 CHRG pin of the charger chip and GPIO 33. Go you! Now you have a guaranteed charge indicator too.
 
-- **define EXPRESSION_PEDAL**
+- **#define EXPRESSION_PEDAL**
 
 Expression pedal define. Comment this out if you DO NOT have the expression pedal mod.
 
-- **define DUMP_ON**
+- **#define DUMP_ON**
 
 Dump preset define. Comment out if you'd prefer to not see so much text output
 
-- **define CLASSIC**
+- **#define CLASSIC**
 
 Uncomment for better Bluetooth compatibility with Android devices
 
-- **define HELTEC_WIFI**
+- **#define HELTEC_WIFI**
 
 Uncomment when using a Heltec module as their implementation doesn't support setMTU()
 
-- **define SSD1306** OR **define SH1106**
+- **#define HELTEC_SCREEN** OR **#define SSD1306** OR **#define SH1106**
 
-Choose and uncomment the type of OLED display that you use: 0.96" SSD1306 or 1.3" SH1106 
+Choose and uncomment the type of OLED display that you use: 0.96" Heltec builtin or SSD1306 or 1.3" SH1106 
 
-- **define TWOCOLOUR**
+- **#define TWOCOLOUR**
 
 Uncomment if two-colour OLED screens are used. Offsets some text and shows an alternate tuner
 
@@ -109,23 +110,23 @@ Uncomment if two-colour OLED screens are used. Offsets some text and shows an al
 
 Uncomment if you want preset number to scroll together with the name, otherwise it'll be locked in place
 
-- **define NOSLEEP**
+- **#define NOSLEEP**
 
 Uncomment if you'd prefer not to use the power-saving sleep modes
 
-- **define RETURN_TO_MASTER**
+- **#define RETURN_TO_MASTER**
 
 When adjusting the level of effects, always start with Master level settings. Comment this line out if you like it to remember your last choice
 
-- **define ACTIVE_HIGH**
+- **#define ACTIVE_HIGH**
 
 Comment out if your buttons connect to the GND rather than to VCC, this will engage internal pullup and sleep routines also. If you make a decision on the build right now, it's recommended to connect buttons to VCC and to use ACTIVE_HIGH directive.
 
-- **define NUM_SWITCHES 4**
+- **#define NUM_SWITCHES 4**
 
 How many switches do we have
 
-- **ALTERNATE_CHARGE_AIN**
+- **#define ALTERNATE_CHARGE_AIN**
 
 Use IO35 instead of IO33. Just for Paul.
 
@@ -133,13 +134,17 @@ Use IO35 instead of IO33. Just for Paul.
 
 GPIOs of the buttons in your setup in the form of switchPins[]{GPIO_for_button1, GPIO_for_button2, GPIO_for_button3, GPIO_for_button4, ... }. Note that GPIOs 25,26,27 and 14 are recommended ones if you want to get the least battery drain in the stand-by mode. 
 
-- **define ANIMATION_1 or ANIMATION_2**
+- **#define ANIMATION_1 or ANIMATION_2**
 
 Until one or the other is voted as a winner you can choose between two animations at startup.
 
-- **define LEDS_USED**
+- **#define LEDS_USED**
 
-Option visual aid to see which tone has been selected. Lights one of four LEDs on pins defined by ledPins[]. 
+Option visual aid to see which tone has been selected. Lights one of four LEDs on pins defined by ledPins[].
+ 
+- **const uint8_t ledPins[]{46,45,47,48};**
+
+Specify LED Pins
 
 # Heltec module version
 ![alt text](https://github.com/happyhappysundays/SparkBox/blob/main/Pictures/Dev_board.jpg?raw=true)
